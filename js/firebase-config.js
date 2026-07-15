@@ -21,3 +21,5 @@ firebase.initializeApp(firebaseConfig);
 // Global handles (dipakai modul lain via db / auth)
 const db = firebase.database();
 const auth = firebase.auth();
+
+console.log('Firebase ready');

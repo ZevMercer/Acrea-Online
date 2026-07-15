@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <title>Acrea Online</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div id="loading">
+    <div class="logo">ACREA ONLINE</div>
+    <div class="spinner"></div>
+    <div style="color:var(--text-dim);font-size:.85rem">Memuat dunia Kepulauan Acrea…</div>
+    <div id="loading-error" style="display:none;max-width:320px;margin-top:1rem;padding:.8rem 1rem;background:var(--panel);border:1px solid var(--danger);border-radius:var(--radius-sm);color:var(--text);font-size:.8rem;text-align:center"></div>
+  </div>
+
+  <!-- Login screen -->
+  <div id="login" class="hidden">
+    <div class="login-card">
+      <h1>ACREA ONLINE</h1>
+      <div class="tag">"Dari 0 koin, kamu ciptakan sejarah."</div>
+      <input id="login-username" type="text" maxlength="20" placeholder="Pilih username…" />
+      <button id="login-btn" class="btn full">Masuk / Daftar</button>
+      <p style="color:var(--text-dim);font-size:.75rem;margin-top:1rem">
+        Login anonim · data tersimpan di perangkat ini.
+      </p>
+    </div>
+  </div>
+
+  <!-- Game screen -->
+  <div id="game" class="hidden">
+    <header>
+      <span class="title">🌾 Acrea</span>
+      <span id="header-user" style="color:var(--text-dim);font-size:.85rem"></span>
+      <span id="header-coin" class="coin"><span class="gold">🪙</span><span>0 CAC</span></span>
+      <span id="header-online" class="online">0 pemain</span>
+      <button id="logout-btn" class="logout">Keluar</button>
+    </header>
+
+    <!-- 9-tab navigation -->
+    <nav id="tabs">
+      <button class="tab active" data-tab="kebun">🌱 Kebun</button>
+      <button class="tab" data-tab="inventori">🎒 Inventori</button>
+      <button class="tab" data-tab="pasar">💰 Pasar</button>
+      <button class="tab" data-tab="chat">💬 Chat</button>
+      <button class="tab" data-tab="profil">👤 Profil</button>
+      <button class="tab" data-tab="crafting">⚒️ Crafting</button>
+      <button class="tab" data-tab="peternakan">🐔 Ternak</button>
+      <button class="tab" data-tab="mining">⛏️ Mining</button>
+      <button class="tab" data-tab="eksplorasi">🗺️ Eksplorasi</button>
+    </nav>
+
+    <main>
+      <!-- Kebun -->
+      <section id="panel-kebun" class="panel active">
+        <h2>Kebun Saya</h2>
+        <div id="kebun-grid" class="kebun-grid"></div>
+      </section>
+
+      <!-- Inventori -->
+      <section id="panel-inventori" class="panel">
+        <h2>Inventori</h2>
+        <div id="inventori-list" class="list"></div>
+        <h2 style="margin-top:1rem">Bibit</h2>
+        <div id="bibit-list" class="list"></div>
+      </section>
+
+      <!-- Pasar -->
+      <section id="panel-pasar" class="panel">
+        <h2>Pasar Global</h2>
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+          <button id="pasar-jual-btn" class="btn small">➕ Jual</button>
+          <button id="pasar-bid-btn" class="btn small secondary">🙋 Bid</button>
+        </div>
+        <h3 style="color:var(--accent)">📤 Ask (Jual)</h3>
+        <div id="ask-list"></div>
+        <h3 style="color:var(--gold);margin-top:1rem">📥 Bid (Beli)</h3>
+        <div id="bid-list"></div>
+      </section>
+
+      <!-- Chat -->
+      <section id="panel-chat" class="panel">
+        <h2>Chat Global</h2>
+        <div class="chat-box">
+          <div id="chat-messages" class="chat-messages"></div>
+          <div class="chat-input-row">
+            <input id="chat-input" type="text" maxlength="300" placeholder="Tulis pesan…" />
+            <button id="chat-send" class="btn small">Kirim</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profil -->
+      <section id="panel-profil" class="panel">
+        <h2>Profil</h2>
+        <div class="card">
+          <div style="font-size:3rem;text-align:center" id="p-avatar">🧑‍🌾</div>
+          <h3 style="text-align:center;margin:.5rem 0" id="p-username">-</h3>
+          <div class="list">
+            <div class="item"><div class="ico">❤️</div><div class="nm">Like</div><div class="qty" id="p-like">0</div></div>
+            <div class="item"><div class="ico">🏆</div><div class="nm">Trust Score</div><div class="qty" id="p-trust">0</div></div>
+            <div class="item"><div class="ico">🪙</div><div class="nm">Total Koin</div><div class="qty" id="p-coin">0</div></div>
+            <div class="item"><div class="ico">📅</div><div class="nm">Bergabung</div><div id="p-joined" style="color:var(--text-dim)">-</div></div>
+            <div class="item"><div class="ico">🔁</div><div class="nm">Transaksi</div><div class="qty" id="p-tx">0</div></div>
+          </div>
+          <button id="p-like-btn" class="btn full" style="margin-top:1rem">❤️ Like</button>
+        </div>
+      </section>
+
+      <!-- Placeholder panels for not-yet-built systems -->
+      <section id="panel-crafting" class="panel"><h2>Crafting</h2><p class="empty">Segera hadir.</p></section>
+      <section id="panel-peternakan" class="panel"><h2>Peternakan</h2><p class="empty">Segera hadir.</p></section>
+      <section id="panel-mining" class="panel"><h2>Mining</h2><p class="empty">Segera hadir.</p></section>
+      <section id="panel-eksplorasi" class="panel"><h2>Eksplorasi</h2><p class="empty">Segera hadir.</p></section>
+    </main>
+  </div>
+
+  <!-- Modal + Toast containers -->
+  <div id="modal-overlay"><div id="modal" class="modal"></div></div>
+  <div id="toast-container"></div>
+
+  <!-- Firebase SDK (isi config di firebase-config.js) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <!-- App scripts (load order matters) -->
+  <script src="js/acrea-core.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/kebun.js"></script>
+  <script src="js/inventori.js"></script>
+  <script src="js/pasar.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/profil.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

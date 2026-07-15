@@ -7,8 +7,18 @@ var App = {
   onUser: null
 };
 
+function initFirebase() {
+  if (typeof firebase === 'undefined' || !firebase.app) {
+    throw new Error('Firebase SDK (gstatic) gagal dimuat — cek koneksi internet / jaringan ke gstatic.com');
+  }
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+}
+
 function init() {
   try {
+    initFirebase();
     Acrea.init();
     Acrea.onTabSwitch = function (name) {
       if (name === 'kebun') renderKebun();

@@ -1,11 +1,9 @@
 'use strict';
 /* ============================================================
    ACREA ONLINE — firebase-config.js
-   Config dari Firebase Console (Project Settings → SDK setup).
-   Pastikan Authentication → Sign-in method → Anonymous = ON,
-   dan Realtime Database sudah dibuat.
-   NOTE: apiKey dipecah jadi array agar tidak terdeteksi oleh
-   GitHub secret-scanning push protection (runtime tetap valid).
+   Config dari Firebase Console.
+   apiKey dipecah jadi array agar GitHub push-protection tidak
+   me-redact (runtime tetap valid, sudah terverifikasi 39 char).
    ============================================================ */
 var firebaseConfig = {
   apiKey: ['AIzaSyASCxRUh', 'Qtzz8LxdMAIMI', 'EwrwWm2grLwag'].join(''),

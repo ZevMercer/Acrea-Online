@@ -82,24 +82,32 @@ function login() {
     currentUser = { uid: uid, username: username };
 
     var ref = fbDb().ref('players/' + uid);
-    ref.once('value').then(function (snap) {
+    return ref.once('value').then(function (snap) {
       if (!snap.exists()) {
         // new player -> write starter pack
         var data = getStarterPack();
         data.username = username;
-        ref.set(data);
-        Acrea.toastSuccess('Selamat datang, ' + username + '! 🌱');
+        return ref.set(data).then(function () {
+          Acrea.toastSuccess('Selamat datang, ' + username + '! 🌱');
+        });
       } else {
         // returning player
         currentUser.username = snap.val().username || username;
         Acrea.toastSuccess('Halo lagi, ' + currentUser.username + '!');
       }
+    }).then(function () {
       if (window.App && App.onUser) App.onUser(currentUser);
       Acrea.showScreen('game');
     });
   }).catch(function (err) {
-    console.error(err);
-    Acrea.toastError('Login gagal: ' + err.message);
+    console.error('LOGIN ERROR:', err);
+    var msg = err && err.message ? err.message : String(err);
+    if (/permission|denied|index/i.test(msg)) {
+      msg = 'Database ditolak. Pastikan Firebase → Realtime Database → Rules = read/write:true.';
+    } else if (/network/i.test(msg)) {
+      msg = 'Gagal konek ke Firebase. Cek internet.';
+    }
+    Acrea.toastError('Login gagal: ' + msg);
   });
 }
 

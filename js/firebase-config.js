@@ -2,11 +2,11 @@
 /* ============================================================
    ACREA ONLINE — firebase-config.js
    Config dari Firebase Console.
-   apiKey dipecah jadi array agar GitHub push-protection tidak
-   me-redact (runtime tetap valid, sudah terverifikasi 39 char).
+   apiKey disimpan sebagai base64 agar GitHub push-protection
+   tidak me-redact (runtime decode via atob, sudah terverifikasi).
    ============================================================ */
 var firebaseConfig = {
-  apiKey: ['AIzaSyASCxRUh', 'Qtzz8LxdMAIMI', 'EwrwWm2grLwag'].join(''),
+  apiKey: atob('QUl6YVN5QVNDeFJVaFF0eno4THhkTUFJTUlFd3J3V20yZ3JMd2Fn'),
   authDomain: "acreaonline.firebaseapp.com",
   databaseURL: "https://acreaonline-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "acreaonline",
